@@ -3,7 +3,7 @@ package metaModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Entity implements MinispecElement {
+public class Entity extends Identifier implements MinispecElement {
 	private String name;
 
 	List<Attribute> attributes;
@@ -27,7 +27,7 @@ public class Entity implements MinispecElement {
 	public void addAttribute(Attribute e) {
 		this.attributes.add(e);
 	}
-	public List<Attribute> getEntities() {
+	public List<Attribute> getAttributes() {
 		return attributes;
 	}
 }

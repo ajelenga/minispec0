@@ -27,12 +27,17 @@ public class XMLAnalyser {
 	}
 
 	protected Model modelFromElement(Element e) {
-		return new Model();
+		String identifier = e.getAttribute("id");
+		Model model = new Model();
+		model.setIDentifiant(identifier);
+		return model;
 	}
 	
 	protected Entity entityFromElement(Element e) {
 		String name = e.getAttribute("name");
+		String identifier = e.getAttribute("id");
 		Entity entity = new Entity();
+		entity.setIDentifiant(identifier);
 		entity.setName(name);
 		Model model = (Model) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("model")));
 		model.addEntity(entity);
@@ -42,7 +47,9 @@ public class XMLAnalyser {
 	protected Attribute attributeFromElement(Element e) {
 		String name = e.getAttribute("name");
 		String type = e.getAttribute("type");
+		String identifier = e.getAttribute("id");
 		Attribute attribute = new Attribute();
+		attribute.setIDentifiant(identifier);
 		attribute.setName(name);
 		attribute.setType(type);
 		Entity entity = (Entity) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("entity")));

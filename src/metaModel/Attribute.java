@@ -1,6 +1,6 @@
 package metaModel;
 
-public class Attribute implements MinispecElement{
+public class Attribute extends Identifier implements MinispecElement{
     private String name;
     private String type;
 

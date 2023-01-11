@@ -3,7 +3,7 @@ package metaModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model implements MinispecElement {
+public class Model extends Identifier implements MinispecElement {
 
 	List<Entity> entities;
 	
