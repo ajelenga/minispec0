@@ -7,4 +7,5 @@
 	<Model id="#1" />
 	<Entity model="#1" id="#20" name="Balise"/>
 	<Entity model="#1" id="#30" name="Satellite"/>
+	<Attribute id="#31" entity="#20" name="String" type="String"/>
 </Root>

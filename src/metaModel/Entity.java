@@ -1,8 +1,17 @@
 package metaModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Entity implements MinispecElement {
 	private String name;
-	
+
+	List<Attribute> attributes;
+
+	public Entity() {
+		this.attributes = new ArrayList<>();
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -15,5 +24,10 @@ public class Entity implements MinispecElement {
 		v.visitEntity(this);
 	};
 
-	
+	public void addAttribute(Attribute e) {
+		this.attributes.add(e);
+	}
+	public List<Attribute> getEntities() {
+		return attributes;
+	}
 }

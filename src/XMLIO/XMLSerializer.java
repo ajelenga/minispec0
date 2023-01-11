@@ -53,6 +53,7 @@ public class XMLSerializer extends Visitor {
 		}
 	}
 
+
 	@Override
 	public void visitEntity(Entity e) {
 		super.visitEntity(e);
