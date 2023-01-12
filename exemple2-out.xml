@@ -2,6 +2,6 @@
 <Root model="#1">
     <Model id="#1"/>
     <Entity id="#20" model="#1" name="Balise"/>
-    <Attribute entity="#20" id="#20" name="string" type="String"/>
+    <Attribute entity="#20" id="#31" name="string" type="String"/>
     <Entity id="#30" model="#1" name="Satellite"/>
 </Root>

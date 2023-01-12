@@ -1,9 +1,7 @@
 package XMLIO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,7 +18,7 @@ import metaModel.Visitor;
 
 public class XMLSerializer extends Visitor {
     List<Element> elements;
-    Element root = null;
+    Element root;
     String modelId;
     String entityID;
     String attributeID;
@@ -59,7 +57,7 @@ public class XMLSerializer extends Visitor {
         attributeID=e.getIDentifiant();
 
         Element elem = this.doc.createElement("Attribute");
-        this.addIdToElement(elem,entityID);
+        this.addIdToElement(elem,attributeID);
         Attr attr = doc.createAttribute("entity");
         attr.setValue(entityID);
         elem.setAttributeNode(attr);
