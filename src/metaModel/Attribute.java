@@ -1,6 +1,6 @@
 package metaModel;
 
-public class Attribute extends Identifier implements MinispecElement{
+public class Attribute extends Identifier implements MinispecElement {
     private String name;
     private String type;
 
@@ -19,6 +19,7 @@ public class Attribute extends Identifier implements MinispecElement{
     public void setType(String type) {
         this.type = type;
     }
+
     public void accept(Visitor v) {
         v.visitAttribute(this);
     }
