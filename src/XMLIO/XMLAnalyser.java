@@ -1,9 +1,6 @@
 package XMLIO;
 
-import metaModel.Attribute;
-import metaModel.Entity;
-import metaModel.MinispecElement;
-import metaModel.Model;
+import metaModel.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -51,7 +48,7 @@ public class XMLAnalyser {
 
     protected Attribute attributeFromElement(Element e) {
         String name = e.getAttribute("name");
-        String type = e.getAttribute("type");
+        Type type = (Type) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("type")));
         String identifier = e.getAttribute("id");
         Attribute attribute = new Attribute();
         attribute.setIDentifiant(identifier);
@@ -71,6 +68,8 @@ public class XMLAnalyser {
             result = modelFromElement(e);
         } else if (tag.equals("Entity")) {
             result = entityFromElement(e);
+        } else if (tag.equals(("TypeSimple"))) {
+            result = attributeFromElement(e);
         } else {
             result = attributeFromElement(e);
         }

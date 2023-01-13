@@ -2,7 +2,7 @@ package metaModel;
 
 public class Attribute extends Identifier implements MinispecElement {
     private String name;
-    private String type;
+    private Type type;
 
     public String getName() {
         return name;
@@ -12,11 +12,11 @@ public class Attribute extends Identifier implements MinispecElement {
         this.name = name;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

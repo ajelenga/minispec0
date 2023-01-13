@@ -1,20 +1,18 @@
 package XMLIO;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import metaModel.Attribute;
+import metaModel.Entity;
+import metaModel.Model;
+import metaModel.Visitor;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import metaModel.Entity;
-import metaModel.Model;
-import metaModel.Visitor;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class XMLSerializer extends Visitor {
     List<Element> elements;
@@ -37,11 +35,13 @@ public class XMLSerializer extends Visitor {
         root = this.doc.createElement("Root");
         this.doc.appendChild(root);
     }
-    private void addIdToElement(Element e,String id) {
+
+    private void addIdToElement(Element e, String id) {
         Attr attr = this.doc.createAttribute("id");
         attr.setValue(id);
         e.setAttributeNode(attr);
     }
+
     private void maybeUpdateRootFrom(Element e) {
         String rootId = this.root.getAttribute("model");
         if (rootId.isEmpty()) {
@@ -54,10 +54,10 @@ public class XMLSerializer extends Visitor {
     @Override
     public void visitAttribute(Attribute e) {
         super.visitAttribute(e);
-        attributeID=e.getIDentifiant();
+        attributeID = e.getIDentifiant();
 
         Element elem = this.doc.createElement("Attribute");
-        this.addIdToElement(elem,attributeID);
+        this.addIdToElement(elem, attributeID);
         Attr attr = doc.createAttribute("entity");
         attr.setValue(entityID);
         elem.setAttributeNode(attr);
@@ -67,19 +67,20 @@ public class XMLSerializer extends Visitor {
         elem.setAttributeNode(attr);
 
         attr = doc.createAttribute("type");
-        attr.setValue(e.getType());
+        attr.setValue(e.getType().getNom());
         elem.setAttributeNode(attr);
 
         this.root.appendChild(elem);
         elements.add(elem);
     }
+
     @Override
     public void visitEntity(Entity e) {
         super.visitEntity(e);
-        entityID=e.getIDentifiant();
+        entityID = e.getIDentifiant();
 
         Element elem = this.doc.createElement("Entity");
-        this.addIdToElement(elem,entityID);
+        this.addIdToElement(elem, entityID);
         Attr attr = doc.createAttribute("model");
         attr.setValue(modelId);
         elem.setAttributeNode(attr);
@@ -90,8 +91,8 @@ public class XMLSerializer extends Visitor {
 
         this.root.appendChild(elem);
         elements.add(elem);
-        for (Attribute n: e.getAttributes()) {
-           n.accept(this);
+        for (Attribute n : e.getAttributes()) {
+            n.accept(this);
         }
     }
 
@@ -100,7 +101,7 @@ public class XMLSerializer extends Visitor {
         super.visitModel(e);
         modelId = e.getIDentifiant();
         Element elem = this.doc.createElement("Model");
-        this.addIdToElement(elem,modelId);
+        this.addIdToElement(elem, modelId);
         this.maybeUpdateRootFrom(elem);
         this.root.appendChild(elem);
         elements.add(elem);
@@ -108,7 +109,6 @@ public class XMLSerializer extends Visitor {
             n.accept(this);
         }
     }
-
 
 
 }
