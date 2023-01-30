@@ -48,15 +48,73 @@ public class XMLAnalyser {
 
     protected Attribute attributeFromElement(Element e) {
         String name = e.getAttribute("name");
-        Type type = (Type) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("type")));
+
         String identifier = e.getAttribute("id");
         Attribute attribute = new Attribute();
         attribute.setIDentifiant(identifier);
         attribute.setName(name);
+
+        Type type = (Type) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("type")));
+        type.addType(identifier, type);
+
         attribute.setType(type);
         Entity entity = (Entity) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("entity")));
         entity.addAttribute(attribute);
+
         return attribute;
+    }
+
+    protected TypeSimple typeSimpleFromElement(Element e) {
+        String id = e.getAttribute("id");
+        String name = e.getAttribute("name");
+        TypeSimple type = new TypeSimple();
+        type.setName(name);
+        type.setIDentifiant(id);
+        return type;
+    }
+
+    protected Col ListFromElement(Element e) {
+        String identifier = e.getAttribute("id");
+        Type type = (Type) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("type")));
+        type.addType(identifier, type);
+        Col col = new Col();
+        String name;
+        String choice = e.getAttribute("typeCol");
+        switch (choice) {
+
+            case "List":
+                name = "ArrayList<" + type.getName() + "> ";
+                name = name + e.getAttribute("name");
+                col.setIDentifiant(identifier);
+                col.setName(name);
+                col.setType(type);
+                break;
+
+            case "Array":
+                name = "Array<" + type.getName() + "> ";
+                name = name + e.getAttribute("name");
+                col.setIDentifiant(identifier);
+                col.setName(name);
+                col.setType(type);
+                break;
+
+            case "Set":
+                name = "HashSet<" + type.getName() + "> ";
+                name = name + e.getAttribute("name");
+                col.setIDentifiant(identifier);
+                col.setName(name);
+                col.setType(type);
+                break;
+            case "Bag":
+                name = "HashSet<" + type.getName() + "> ";
+                name = name + e.getAttribute("name");
+                col.setIDentifiant(identifier);
+                col.setName(name);
+                col.setType(type);
+                break;
+        }
+        return col;
+
     }
 
     protected MinispecElement minispecElementFromXmlElement(Element e) {
@@ -64,14 +122,22 @@ public class XMLAnalyser {
         MinispecElement result = this.minispecIndex.get(id);
         if (result != null) return result;
         String tag = e.getTagName();
-        if (tag.equals("Model")) {
-            result = modelFromElement(e);
-        } else if (tag.equals("Entity")) {
-            result = entityFromElement(e);
-        } else if (tag.equals(("TypeSimple"))) {
-            result = attributeFromElement(e);
-        } else {
-            result = attributeFromElement(e);
+        switch (tag) {
+            case "Model":
+                result = modelFromElement(e);
+                break;
+            case "Entity":
+                result = entityFromElement(e);
+                break;
+            case "Attribute":
+                result = attributeFromElement(e);
+                break;
+            case "Collection":
+                result = ListFromElement(e);
+                break;
+            case "TypeSimple":
+                result = typeSimpleFromElement(e);
+                break;
         }
         this.minispecIndex.put(id, result);
         return result;

@@ -1,9 +1,6 @@
 package XMLIO;
 
-import metaModel.Attribute;
-import metaModel.Entity;
-import metaModel.Model;
-import metaModel.Visitor;
+import metaModel.*;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class XMLSerializer extends Visitor {
     List<Element> elements;
@@ -20,6 +18,7 @@ public class XMLSerializer extends Visitor {
     String modelId;
     String entityID;
     String attributeID;
+    String typeID;
     Document doc;
 
     Document result() {
@@ -67,11 +66,30 @@ public class XMLSerializer extends Visitor {
         elem.setAttributeNode(attr);
 
         attr = doc.createAttribute("type");
-        attr.setValue(e.getType().getNom());
+        attr.setValue(e.getType().getIDentifiant());
         elem.setAttributeNode(attr);
 
         this.root.appendChild(elem);
         elements.add(elem);
+        for (Map.Entry mapentry : e.getType().getTabtype().entrySet()) {
+            if (mapentry.getKey().equals(attributeID))
+                ((Type) mapentry.getValue()).accept(this);
+        }
+    }
+
+    public void visitType(Type e) {
+        super.visitType(e);
+        typeID = e.getIDentifiant();
+
+        if (e instanceof TypeSimple) {
+            Element elem = this.doc.createElement("TypeSimple");
+            this.addIdToElement(elem, typeID);
+            Attr attr = doc.createAttribute("name");
+            attr.setValue(e.getName());
+            elem.setAttributeNode(attr);
+            this.root.appendChild(elem);
+            elements.add(elem);
+        }
     }
 
     @Override

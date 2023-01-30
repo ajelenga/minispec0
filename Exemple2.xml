@@ -7,6 +7,11 @@
     <Model id="#1"/>
     <Entity model="#1" id="#20" name="Balise"/>
     <Entity model="#1" id="#30" name="Satellite"/>
-    <TypeSimple id="#12" name="String"/>
-    <Attribute id="#31" entity="#20" name="string" typeSimple="#12"/>
+    <Entity model="#1" id="#50" name="StationMer"/>
+    <Attribute entity="#20" id="#500" name="nom" type="#89"/>
+    <Attribute entity="#20" id="#5020" name="nomsss" type="#89"/>
+    <Attribute entity="#30" id="#51200" name="nom" type="#89"/>
+    <Attribute entity="#50" id="#5900" name="prix" type="#90"/>
+    <TypeSimple id="#89" name="String"/>
+    <TypeSimple id="#90" name="Integer"/>
 </Root>
