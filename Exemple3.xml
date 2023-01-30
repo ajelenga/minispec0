@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- start : c'est l'id de l'expression racine -->
+<Root model="#1">
+    <!-- chaque element a un identifiant unique (attribut id) -->
+    <!-- Pour associer deux expressions on utilise l'identifiant -->
+    <!-- exemple : le model de l'entite #30 est pointé par son attribut model avec #1 -->
+    <Model id="#1"/>
+    <Entity model="#1" id="#20" name="Balise"/>
+    <Entity model="#1" id="#30" name="Satellite"/>
+    <Entity model="#1" id="#50" name="StationMer"/>
+    <Attribute entity="#20" id="#500" name="nom" type="#89"/>
+    <Attribute entity="#20" id="#5020" name="nomsss" type="#89"/>
+    <Attribute entity="#30" id="#51200" name="nom" type="#89"/>
+    <Attribute entity="#50" id="#5900" name="prix" type="#90"/>
+    <TypeSimple id="#89" name="String"/>
+    <TypeSimple id="#90" name="Integer"/>
+    <Collection id="#100" type="#90" typeCol="List"/>
+    <Collection id="#200" type="#90" typeCol="List"/>
+
+</Root>
